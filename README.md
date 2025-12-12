@@ -89,4 +89,3 @@ Truy cập http://localhost:3000 trên trình duyệt để trải nghiệm ứn
 📝 License
 
 Dự án này là phần Frontend của đề tài nghiên cứu khoa học/niên luận ngành Mạng máy tính & Truyền thông dữ liệu.
-Phát triển bởi [Nguyen Lam Truong](https://github.com/truongnguyen3006)

@@ -1,65 +1,94 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useQuery } from '@tanstack/react-query';
+import { productApi } from '@/services/productApi';
+import { Spin, Result } from 'antd';
+import Link from 'next/link';
+
+// Định nghĩa lại kiểu dữ liệu cho khớp
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  description?: string;
+  category?: string; // Đây chính là "Men's Shoes", "Women's Shoes"
+  imageUrl?: string;
+  skuCode?: string;
+}
+
+export default function HomePage() {
+  const { data: products, isLoading, isError } = useQuery<Product[]>({
+    queryKey: ['products'],
+    queryFn: async () => {
+        const data = await productApi.getAll();
+        return data as unknown as Product[];
+    },
+  });
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-white">
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+        <div className="flex h-screen items-center justify-center bg-white">
+            <Result status="500" title="Lỗi tải dữ liệu" />
+        </div>
+    );
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="min-h-screen bg-white pb-20 px-4 md:px-12 pt-8">
+      
+      {/* Tiêu đề trang chủ (Optional) */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-medium text-black">Mới nhất & Nổi bật</h2>
+      </div>
+
+      {/* LƯỚI SẢN PHẨM - CHUẨN NIKE STYLE */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-x-4 gap-y-10">
+        {products?.map((product: Product) => (
+          <Link 
+            href={`/product/${product.id}`} 
+            key={product.id} 
+            className="group block cursor-pointer"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            {/* 1. KHUNG ẢNH: Nền xám #F5F5F5, vuông vức */}
+            <div className="relative aspect-square w-full overflow-hidden bg-[#F5F5F5]">
+                <img 
+                    alt={product.name}
+                    src={product.imageUrl || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245/air-jordan-1-low-mens-shoes-0LXhbn.png"}
+                    className="h-full w-full object-contain mix-blend-multiply p-4 transition-opacity duration-500 group-hover:opacity-90"
+                />
+            </div>
+
+            {/* 2. THÔNG TIN - Căn trái, không viền, font Helvetica/Arial */}
+            <div className="mt-4 flex flex-col gap-1 px-1">
+                {/* Tag "Just In" màu cam đất giống ảnh */}
+                <span className="text-[#9E3500] font-medium text-sm">Just In</span>
+
+                {/* Tên sản phẩm - Đen, Đậm */}
+                <h3 className="text-base font-semibold text-black leading-tight">
+                    {product.name}
+                </h3>
+
+                {/* Category - Màu xám nhạt */}
+                <p className="text-base text-[#757575]">
+                    {product.category || "Men's Shoes"}
+                </p>
+                
+                {/* Giá tiền - Đen, dời xuống một chút */}
+                <div className="mt-2 text-base font-medium text-black">
+                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}
+                </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </main>
   );
 }

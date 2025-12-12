@@ -11,6 +11,8 @@
 
 Dự án áp dụng các kỹ thuật tiên tiến như **Server-Side Rendering (SSR)** để tối ưu SEO, **WebSockets** để cập nhật trạng thái đơn hàng thời gian thực, và mô hình **BFF (Backend for Frontend)** giả lập thông qua Proxy để bảo mật hệ thống.
 
+---
+
 ## 🚀 Các tính năng & Kỹ thuật nổi bật
 
 ### 1. Tối ưu hóa Hiệu năng
@@ -26,6 +28,8 @@ Dự án áp dụng các kỹ thuật tiên tiến như **Server-Side Rendering 
 - **API Proxying (Rewrites):** Cấu hình Next.js Rewrites để định tuyến toàn bộ API request qua một cổng duy nhất, giải quyết triệt để vấn đề **CORS** và che giấu cấu trúc hạ tầng Microservices phía sau.
 - **Secure Authentication:** Sử dụng **Axios Interceptors** để tự động đính kèm JWT Access Token và cơ chế **Silent Refresh Token** tự động khi phiên đăng nhập hết hạn.
 
+---
+
 ## 🛠 Tech Stack
 
 | Hạng mục | Công nghệ | Chi tiết |
@@ -39,6 +43,8 @@ Dự án áp dụng các kỹ thuật tiên tiến như **Server-Side Rendering 
 | **Data Fetching**| TanStack Query | Quản lý Server State (Caching, Re-fetching). |
 | **Real-time** | SockJS, STOMP | Giao thức WebSocket. |
 
+---
+
 ## ⚙️ Hướng dẫn Cài đặt & Chạy
 
 ### Bước 1: Yêu cầu tiên quyết
@@ -46,14 +52,17 @@ Dự án áp dụng các kỹ thuật tiên tiến như **Server-Side Rendering 
 - npm hoặc yarn  
 
 ### Bước 2: Cài đặt thư viện
+Di chuyển vào thư mục dự án và chạy lệnh sau để cài đặt dependencies:
+
 ```bash
+# Sử dụng npm
 npm install
-# hoặc
+
+# Hoặc sử dụng yarn
 yarn install
 Bước 3: Cấu hình môi trường
 
-Tạo file .env.local tại thư mục gốc:
-
+Tạo file .env.local tại thư mục gốc của dự án và thêm các cấu hình kết nối Backend:
 # Địa chỉ của API Gateway (Nginx hoặc Spring Cloud Gateway)
 NEXT_PUBLIC_API_URL=http://localhost:8080
 
@@ -61,12 +70,12 @@ NEXT_PUBLIC_API_URL=http://localhost:8080
 NEXT_PUBLIC_WS_URL=http://localhost:8087
 
 Bước 4: Chạy Server phát triển
-npm run dev
 
+Khởi động server Next.js:
+Bước 4: Chạy Server phát triển
 
-Truy cập http://localhost:3000
- trên trình duyệt để trải nghiệm.
-
+Khởi động server Next.js:
+Truy cập http://localhost:3000 trên trình duyệt để trải nghiệm ứng dụng.
 📂 Cấu trúc dự án
 ├── app/                 # Next.js App Router (Pages & Layouts)
 │   ├── (auth)/          # Route nhóm cho Login/Register
@@ -77,9 +86,7 @@ Truy cập http://localhost:3000
 ├── store/               # Zustand Stores (useCartStore, useAuthStore)
 ├── services/            # API Service definitions
 └── public/              # Static assets (Images, Icons)
-
 📝 License
 
 Dự án này là phần Frontend của đề tài nghiên cứu khoa học/niên luận ngành Mạng máy tính & Truyền thông dữ liệu.
-
-Phát triển bởi Nguyen Lam Truong
+Phát triển bởi [Nguyen Lam Truong](https://github.com/truongnguyen3006)

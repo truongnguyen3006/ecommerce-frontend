@@ -61,8 +61,13 @@ git clone [https://github.com/truongnguyen3006/ecommerce-frontend.git](https://g
 cd ecommerce-frontend
 
 ### Bước 3: Cài đặt thư viện (Dependencies)
-### Chạy lệnh sau để cài đặt các gói phụ thuộc (sử dụng cờ legacy-peer-deps để tránh xung đột version React 19):
+
+Chạy lệnh sau để cài đặt các gói phụ thuộc.  
+Sử dụng cờ `--legacy-peer-deps` để tránh xung đột version với React 19:
+
+```bash
 npm install --legacy-peer-deps
+
 
 ### Bước 4: Cấu hình môi trường
 ### Tạo file .env.local tại thư mục gốc và thêm cấu hình kết nối Backend:

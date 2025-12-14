@@ -62,11 +62,22 @@ cd ecommerce-frontend
 
 ### Bước 3: Cài đặt thư viện (Dependencies)
 
-Chạy lệnh sau để cài đặt các gói phụ thuộc.  
-Sử dụng cờ `--legacy-peer-deps` để tránh xung đột version với React 19:
+Dự án sử dụng các công nghệ mới nhất (React 19, Next.js 16, Tailwind 4). Để đảm bảo tính tương thích và tránh lỗi xung đột phiên bản, vui lòng chạy các lệnh cài đặt chi tiết dưới đây.
+
+**Cách 1: Cài đặt tất cả trong một lệnh (Khuyên dùng)**
+
+Copy và chạy toàn bộ lệnh sau trong Terminal:
 
 ```bash
-npm install --legacy-peer-deps
+npm install next@16.0.3 react@19.2.0 react-dom@19.2.0 \
+antd@5.29.1 @ant-design/v5-patch-for-react-19 \
+tailwindcss@4 @tailwindcss/postcss postcss \
+zustand@5.0.8 @tanstack/react-query@5.90.10 \
+axios@1.13.2 @stomp/stompjs@7.2.1 sockjs-client@1.6.1 \
+jwt-decode@4.0.0 \
+--legacy-peer-deps
+
+Lưu ý quan trọng: Do React 19 là phiên bản rất mới, một số thư viện chưa kịp cập nhật peerDependencies. Bắt buộc phải thêm cờ --legacy-peer-deps để bỏ qua lỗi xung đột phiên bản khi cài đặt.
 
 
 ### Bước 4: Cấu hình môi trường

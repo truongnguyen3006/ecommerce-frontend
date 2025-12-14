@@ -77,5 +77,4 @@ NEXT_PUBLIC_WS_URL=http://localhost:8087
 ### Bước 5: Chạy Server phát triển
 ### Khởi động server Next.js ở chế độ development bằng lệnh:
 npm run dev
-### Được thực hiện bởi:
-* [**Nguyen Lam Truong**](https://github.com/truongnguyen3006).
+

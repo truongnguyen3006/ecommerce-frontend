@@ -50,7 +50,7 @@ Dự án áp dụng các kỹ thuật tiên tiến như **Server-Side Rendering 
 
 ### Bước 1: Yêu cầu tiên quyết (Prerequisites)
 Trước khi bắt đầu, hãy đảm bảo máy bạn đã cài đặt:
-* [**Node.js**](https://nodejs.org/) (Phiên bản v18.17 trở lên, khuyến nghị v20.x LTS hoặc v22.x).
+* [**Node.js**](https://nodejs.org/) (Phiên bản v18.17 trở lên, khuyến nghị v20.x LTS).
 * [**Git**](https://git-scm.com/) để tải mã nguồn.
 
 ### Bước 2: Tải mã nguồn
@@ -60,37 +60,17 @@ Mở Terminal và chạy lệnh sau để clone dự án về máy:
 git clone [https://github.com/truongnguyen3006/ecommerce-frontend.git](https://github.com/truongnguyen3006/ecommerce-frontend.git)
 cd ecommerce-frontend
 
-Bước 3: Cài đặt thư viện (Dependencies)
-Do dự án sử dụng React 19 (phiên bản mới nhất), có thể xảy ra xung đột với một số thư viện cũ. Hãy sử dụng lệnh sau để cài đặt an toàn theo khuyến nghị:
-
-# Sử dụng npm (Khuyên dùng)
+### Bước 3: Cài đặt thư viện (Dependencies)
+### Chạy lệnh sau để cài đặt các gói phụ thuộc (sử dụng cờ legacy-peer-deps để tránh xung đột version React 19):
 npm install --legacy-peer-deps
 
-# Hoặc sử dụng yarn
-yarn install
-
-Bước 4: Cấu hình môi trường
-Tạo file .env.local tại thư mục gốc của dự án và thêm cấu hình kết nối tới Backend (API Gateway):
-
-# Địa chỉ của Nginx Load Balancer hoặc API Gateway
+### Bước 4: Cấu hình môi trường
+### Tạo file .env.local tại thư mục gốc và thêm cấu hình kết nối Backend:
 NEXT_PUBLIC_API_URL=http://localhost:8080
-
-# Cấu hình WebSocket (Notification Service)
 NEXT_PUBLIC_WS_URL=http://localhost:8087
 
-Bước 5: Chạy Server phát triển
-Khởi động server Next.js ở chế độ development bằng lệnh:
-
+### Bước 5: Chạy Server phát triển
+### Khởi động server Next.js ở chế độ development bằng lệnh:
 npm run dev
-
-📂 Cấu trúc dự án
-├── app/                 # Next.js App Router (Pages & Layouts)
-│   ├── (auth)/          # Route nhóm cho Login/Register
-│   ├── checkout/        # Trang thanh toán
-│   ├── admin/           # Trang quản trị viên
-│   └── order/           # Trang theo dõi đơn hàng (Real-time)
-├── components/          # Reusable UI Components (Header, Footer...)
-├── lib/                 # Các tiện ích cấu hình (Axios Client, WebSocket Provider)
-├── store/               # Zustand Stores (useCartStore, useAuthStore)
-├── services/            # API Service definitions (tách biệt logic gọi API)
-└── public/              # Static assets (Images, Icons)
+### Được thực hiện bởi:
+* [**Nguyen Lam Truong**](https://github.com/truongnguyen3006).

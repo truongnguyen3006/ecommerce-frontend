@@ -32,7 +32,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const checkAuth = () => {
         // 1. Kiểm tra Token trong LocalStorage (Nguồn sự thật đáng tin cậy nhất khi vừa reload)
         // Cần check window để tránh lỗi SSR
-        const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+        const token = typeof window !== 'undefined' ? sessionStorage
+        .getItem('access_token') : null;
 
         // Trường hợp 1: Không có token trong localStorage -> Chắc chắn chưa đăng nhập
         if (!token) {

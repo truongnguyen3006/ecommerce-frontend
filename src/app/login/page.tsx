@@ -35,6 +35,7 @@ export default function LoginPage() {
       }
 
       let userProfile: UserProfile | undefined = undefined;
+      
       try {
           userProfile = (await authApi.getMe()) as unknown as UserProfile;
           console.log("User Profile fetched:", userProfile);
@@ -44,14 +45,16 @@ export default function LoginPage() {
 
       login(accessToken, userProfile);
 
-      const currentUser = useAuthStore.getState().user;
+      const { user } = useAuthStore.getState();
+      const isAdmin = user?.roles?.includes('admin');
+
       
-      if (currentUser?.roles?.includes('admin')) {
-        message.success(`Xin chào Admin ${currentUser.fullName || currentUser.username}!`);
-        router.push('/admin');
+      if (isAdmin) {
+        message.success(`Xin chào Admin ${userProfile?.fullName || values.username}!`);
+         router.replace('/admin');
       } else {
         message.success(`Đăng nhập thành công!`);
-        router.push('/');
+        router.replace('/');
       }
 
     } catch (error: unknown) {

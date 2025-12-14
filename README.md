@@ -45,47 +45,35 @@ Dự án áp dụng các kỹ thuật tiên tiến như **Server-Side Rendering 
 
 ---
 
-## ⚙️ Hướng dẫn Cài đặt & Chạy
+## 💾 Hướng dẫn Cài đặt & Chạy (Installation & Setup)
 
-### Bước 1: Yêu cầu tiên quyết
-- Node.js 18.17 trở lên  
-- npm hoặc yarn  
-
-### Bước 2: Cài đặt thư viện
-Di chuyển vào thư mục dự án và chạy lệnh sau để cài đặt dependencies:
+### 1. Sao chép mã nguồn (Clone Repository) 
+Mở terminal và chạy lệnh sau để tải dự án về máy:
 
 ```bash
-# Sử dụng npm
-npm install
+git clone [https://github.com/truongnguyen3006/ecommerce-backend.git](https://github.com/truongnguyen3006/ecommerce-backend.git)
+cd ecommerce-microservices-backend
 
-# Hoặc sử dụng yarn
-yarn install
-Bước 3: Cấu hình môi trường
+2. Khởi chạy hạ tầng Middleware (Docker)
+docker-compose up -d
 
-Tạo file .env.local tại thư mục gốc của dự án và thêm các cấu hình kết nối Backend:
-# Địa chỉ của API Gateway (Nginx hoặc Spring Cloud Gateway)
-NEXT_PUBLIC_API_URL=http://localhost:8080
+⏳ Các dịch vụ sau sẽ được khởi tạo:
 
-# Địa chỉ của Notification Service (WebSocket)
-NEXT_PUBLIC_WS_URL=http://localhost:8087
+🚀 Apache Kafka (Chế độ KRaft - không cần Zookeeper)
 
-Bước 4: Chạy Server phát triển
+🔴 Redis (Caching & Locking)
 
-Khởi động server Next.js:
-Bước 4: Chạy Server phát triển
+🐬 MySQL (Database chính)
 
-Khởi động server Next.js:
-Truy cập http://localhost:3000 trên trình duyệt để trải nghiệm ứng dụng.
-📂 Cấu trúc dự án
-├── app/                 # Next.js App Router (Pages & Layouts)
-│   ├── (auth)/          # Route nhóm cho Login/Register
-│   ├── checkout/        # Trang thanh toán
-│   └── order/           # Trang theo dõi đơn hàng (Real-time)
-├── components/          # Reusable UI Components
-├── lib/                 # Các tiện ích cấu hình (Axios, WebSocket)
-├── store/               # Zustand Stores (useCartStore, useAuthStore)
-├── services/            # API Service definitions
-└── public/              # Static assets (Images, Icons)
-📝 License
+🔐 Keycloak (Identity Provider)
 
-Dự án này là phần Frontend của đề tài nghiên cứu khoa học/niên luận ngành Mạng máy tính & Truyền thông dữ liệu.
+🕵️ Zipkin, Prometheus, Grafana (Giám sát hệ thống)
+
+3. Khởi chạy Microservices
+Để hệ thống hoạt động chính xác, vui lòng khởi động các dịch vụ theo thứ tự ưu tiên sau:
+
+Discovery Server (Eureka) – Port 8761 (Chờ khởi động xong hoàn toàn)
+
+API Gateway – Port 8080 (Chờ kết nối thành công với Eureka)
+
+Các dịch vụ nghiệp vụ (Có thể chạy song song):
